@@ -6,9 +6,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class DefaultCache<K, V> implements Cache<K, V> {
+    private final long cacheSize;
     Map<K, V> cache;
 
-    public DefaultCache() {
+    public DefaultCache(long cacheSize) {
+        this.cacheSize = cacheSize;
         cache = new HashMap<>();
     }
 
@@ -19,6 +21,14 @@ public class DefaultCache<K, V> implements Cache<K, V> {
 
     @Override
     public boolean put(K key, V value) {
+        if (!cache.containsKey(key)
+            && cache.size() > cacheSize) {
+            cache
+                    .keySet()
+                    .stream()
+                    .findAny()
+                    .ifPresent(cache::remove);
+        }
         cache.put(key, value);
         return true;
     }

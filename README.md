@@ -9,12 +9,6 @@
 - **Design Patterns**: Explore how different design patterns can be applied to enhance caching mechanisms.
 - **Best Practices**: Highlight best practices and common pitfalls in cache design and implementation.
 
-## Features
-- **Variety of Caches**: Implementations of different types of caches such as in-memory cache, distributed cache, write-through cache, write-back cache, and more.
-- **Design Patterns**: Examples of applying design patterns like Singleton, Factory, Strategy, Decorator, and Proxy in caching scenarios.
-- **Code Examples**: Well-documented code examples in multiple programming languages.
-- **Use Cases**: Real-world use cases and scenarios demonstrating the application of different caching techniques.
-
 ## Getting Started
 1. **Clone the Repository**:
     ```bash
@@ -24,7 +18,8 @@
     ```bash
     cd CacheCraft
     ```
-3. **Explore Examples**: Browse through the different folders to explore various caching strategies and design patterns.
+3. **Explore Examples**: 
+   1. [FIFOCache](src/main/java/com.example/CacheImpl/FIFOCache.java)
 
 ## Contributions
 We welcome contributions! If you have ideas, improvements, or new caching strategies to add, please feel free to submit a pull request. For major changes, please open an issue first to discuss what you would like to change.

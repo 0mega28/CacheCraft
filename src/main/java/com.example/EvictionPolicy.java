@@ -1,5 +1,6 @@
 package com.example;
 
 public enum EvictionPolicy {
-    NONE
+    NONE,
+    FIFO
 }

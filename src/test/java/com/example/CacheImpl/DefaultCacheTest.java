@@ -10,7 +10,7 @@ public class DefaultCacheTest {
 
     @BeforeEach
     void setUp() {
-        cache = new DefaultCache<>();
+        cache = new DefaultCache<>(10);
     }
 
     @Test
