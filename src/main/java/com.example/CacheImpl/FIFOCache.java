@@ -2,10 +2,7 @@ package com.example.CacheImpl;
 
 import com.example.Cache;
 
-import java.util.ArrayDeque;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Queue;
+import java.util.*;
 
 /**
  * A simple FIFO (First-In-First-Out) cache implementation.
@@ -30,12 +27,12 @@ public class FIFOCache<K, V> implements Cache<K, V> {
     }
 
     @Override
-    public V get(K key) {
-        return cache.get(key);
+    public Optional<V> get(final K key) {
+        return Optional.ofNullable(cache.get(key));
     }
 
     @Override
-    public boolean put(K key, V value) {
+    public boolean put(final K key, final V value) {
         if (cache.containsKey(key)) {
             cache.put(key, value);
             return true;

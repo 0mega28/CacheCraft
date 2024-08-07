@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.Optional;
+
 public class DefaultCacheTest {
 
     private DefaultCache<String, String> cache;
@@ -21,11 +23,11 @@ public class DefaultCacheTest {
 
         // Act
         boolean putResult = cache.put(key, value);
-        String getResult = cache.get(key);
+        Optional<String> getResult = cache.get(key);
 
         // Assert
         assertTrue(putResult, "put should return true");
-        assertEquals(value, getResult, "get should return the value that was put");
+        assertEquals(Optional.of(value), getResult, "get should return the value that was put");
     }
 
     @Test
@@ -34,10 +36,10 @@ public class DefaultCacheTest {
         String key = "nonExistentKey";
 
         // Act
-        String result = cache.get(key);
+        Optional<String> result = cache.get(key);
 
         // Assert
-        assertNull(result, "get should return null for a non-existent key");
+        assertEquals(Optional.empty(), result);
     }
 
     @Test
@@ -50,9 +52,9 @@ public class DefaultCacheTest {
         // Act
         cache.put(key, value1);
         cache.put(key, value2);
-        String result = cache.get(key);
+        Optional<String> result = cache.get(key);
 
         // Assert
-        assertEquals(value2, result, "get should return the most recently put value for the key");
+        assertEquals(Optional.of(value2), result, "get should return the most recently put value for the key");
     }
 }

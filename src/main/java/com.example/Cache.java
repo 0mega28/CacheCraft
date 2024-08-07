@@ -1,7 +1,9 @@
 package com.example;
 
-public interface Cache<K, V> {
-    V get(K key);
+import java.util.Optional;
 
-    boolean put(K key, V value);
+public interface Cache<K, V> {
+    Optional<V> get(final K key);
+
+    boolean put(final K key, final V value);
 }
