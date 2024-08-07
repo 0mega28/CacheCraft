@@ -40,5 +40,12 @@ class FIFOCacheTest {
         assertEquals(Optional.of("value3"), cache.get("key3"));
         cache.put("key6", "value6");
         assertEquals(Optional.empty(), cache.get("key3"));
+
+        /*
+         * Evict 4th entry,
+         * this test is added to check if the replacement keys are getting removed or not
+         */
+        cache.put("key7", "value7");
+        assertEquals(Optional.empty(), cache.get("key4"));
     }
 }

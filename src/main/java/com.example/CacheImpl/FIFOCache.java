@@ -47,6 +47,7 @@ public class FIFOCache<K, V> implements Cache<K, V> {
         K keyToBeRemoved = keyEntryOrder.remove();
         cache.remove(keyToBeRemoved);
         cache.put(key, value);
+        keyEntryOrder.add(key);
         return true;
     }
 }
