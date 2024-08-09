@@ -2,12 +2,14 @@ package com.example.datastructure;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.HashSet;
 import java.util.NoSuchElementException;
 
 public class DoublyLinkedList<T> {
     private Node<T> head;
     private Node<T> tail;
     private int size = 0;
+    private final HashSet<Node<T>> nodes = new HashSet<>();
 
     public Node<T> add(T key) {
         Node<T> newNode = new Node<>(key);
@@ -21,6 +23,7 @@ public class DoublyLinkedList<T> {
         tail = newNode;
 
         size++;
+        nodes.add(newNode);
         return newNode;
     }
 
@@ -44,6 +47,9 @@ public class DoublyLinkedList<T> {
     }
 
     public void remove(@NotNull Node<T> node) {
+        if (!nodes.contains(node)) {
+            throw new IllegalArgumentException("Node is not in the list");
+        }
         if (head == tail && head == node) {
             head = null;
             tail = null;
@@ -58,6 +64,7 @@ public class DoublyLinkedList<T> {
             node.next.prev = node.prev;
         }
         size--;
+        nodes.remove(node);
     }
 
     public double size() {
