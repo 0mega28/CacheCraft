@@ -1,7 +1,5 @@
 package com.example;
 
-import com.example.datastructure.DoublyLinkedList;
-import com.example.datastructure.DoublyLinkedList.Node;
 import org.jetbrains.annotations.NotNull;
 
 public class LIFOEvictionPolicy<K> extends AbstractEvictionPolicy<K> {

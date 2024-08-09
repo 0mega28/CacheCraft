@@ -1,6 +1,5 @@
 package com.example;
 
-import com.example.datastructure.DoublyLinkedList.Node;
 import org.jetbrains.annotations.NotNull;
 
 public class FIFOEvictionPolicy<K> extends AbstractEvictionPolicy<K> {
