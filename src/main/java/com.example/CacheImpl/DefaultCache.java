@@ -22,14 +22,18 @@ public class DefaultCache<K, V> implements Cache<K, V> {
 
     @Override
     public boolean put(final K key, final V value) {
-        if (!cache.containsKey(key)
-            && cache.size() > cacheSize) {
-            cache
-                    .keySet()
-                    .stream()
-                    .findAny()
-                    .ifPresent(cache::remove);
+        if (cache.containsKey(key)) {
+            cache.put(key, value);
+            return true;
         }
+
+        if (cache.size() < cacheSize) {
+            cache.put(key, value);
+            return true;
+        }
+
+        K keyToBeRemoved = cache.keySet().stream().findAny().get();
+        cache.remove(keyToBeRemoved);
         cache.put(key, value);
         return true;
     }
