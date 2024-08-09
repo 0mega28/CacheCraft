@@ -1,5 +1,6 @@
-package com.example.CacheImpl;
+package com.example;
 
+import com.example.CacheImpl.LIFOCache;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
@@ -8,11 +9,11 @@ import java.util.Optional;
 
 public class LIFOCacheTest {
 
-    private LIFOCache<String, String> cache;
+    private Cache<String, String> cache;
 
     @BeforeEach
     public void setUp() {
-        cache = new LIFOCache<>(3);
+        cache = CacheFactory.getCache(EvictionPolicy.LIFO, 3);
     }
 
     @Test

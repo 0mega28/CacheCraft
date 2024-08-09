@@ -1,5 +1,6 @@
-package com.example.CacheImpl;
+package com.example;
 
+import com.example.CacheImpl.FIFOCache;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -8,11 +9,11 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 
 class FIFOCacheTest {
-    private FIFOCache<String, String> cache;
+    private Cache<String, String> cache;
 
     @BeforeEach
     void setUp() {
-        cache = new FIFOCache<>(3);
+        cache = CacheFactory.getCache(EvictionPolicy.FIFO, 3);
     }
 
     @Test

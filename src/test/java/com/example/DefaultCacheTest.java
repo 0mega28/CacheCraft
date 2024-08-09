@@ -1,6 +1,8 @@
-package com.example.CacheImpl;
+package com.example;
 
 import static org.junit.jupiter.api.Assertions.*;
+
+import com.example.CacheImpl.DefaultCache;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -8,11 +10,11 @@ import java.util.Optional;
 
 public class DefaultCacheTest {
 
-    private DefaultCache<String, String> cache;
+    private Cache<String, String> cache;
 
     @BeforeEach
     void setUp() {
-        cache = new DefaultCache<>(10);
+        cache = CacheFactory.getCache(EvictionPolicy.NONE, 10);
     }
 
     @Test
