@@ -1,14 +1,17 @@
 package com.example;
 
 public interface CacheFactory {
-    static<K, V> Cache<K, V> getCache(final EvictionPolicy EVICTION_POLICY, final int capacity) {
+    static <K, V> Cache<K, V> getCache(final EvictionPolicy EVICTION_POLICY, final int capacity) {
         if (capacity <= 0) {
             throw new IllegalArgumentException("Cache size must be greater than 0");
         }
-        return switch (EVICTION_POLICY) {
-            case RANDOM -> new CacheImpl<>(capacity, new DefaultEvictionPolicy<K>());
-            case FIFO -> new CacheImpl<>(capacity, new FIFOEvictionPolicy<K>());
-            case LIFO -> new CacheImpl<>(capacity, new LIFOEvictionPolicy<K>());
+        var evictionPolicy = switch (EVICTION_POLICY) {
+            case RANDOM -> new DefaultEvictionPolicy<K>();
+            case FIFO -> new FIFOEvictionPolicy<K>();
+            case LIFO -> new LIFOEvictionPolicy<K>();
+            case LRU -> new LRUEvictionPolicy<K>();
         };
+
+        return new CacheImpl<>(capacity, evictionPolicy);
     }
 }

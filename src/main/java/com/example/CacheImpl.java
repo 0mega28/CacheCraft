@@ -19,7 +19,7 @@ class CacheImpl<K, V> implements Cache<K, V> {
     @Override
     public Optional<V> get(@NotNull K key) {
         Optional<V> value = storage.get(key);
-        evictionPolicy.keyAccessed(key);
+        value.ifPresent(_i -> evictionPolicy.keyAccessed(key));
         return value;
     }
 
