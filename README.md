@@ -19,7 +19,8 @@
     cd CacheCraft
     ```
 3. **Explore Examples**: 
-   1. [FIFOCache](src/main/java/com.example/CacheImpl/FIFOCache.java)
+   1. [FIFOCache](src/main/java/com/example/CacheImpl/FIFOCache.java)
+   2. [LIFOCache](src/main/java/com/example/CacheImpl/LIFOCache.java)
 
 ## Contributions
 We welcome contributions! If you have ideas, improvements, or new caching strategies to add, please feel free to submit a pull request. For major changes, please open an issue first to discuss what you would like to change.

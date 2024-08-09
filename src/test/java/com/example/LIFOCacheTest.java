@@ -1,6 +1,5 @@
 package com.example;
 
-import com.example.CacheImpl.LIFOCache;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;

@@ -2,7 +2,6 @@ package com.example;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import com.example.CacheImpl.DefaultCache;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
