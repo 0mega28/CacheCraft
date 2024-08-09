@@ -13,7 +13,7 @@ public class DefaultCacheTest {
 
     @BeforeEach
     void setUp() {
-        cache = CacheFactory.getCache(EvictionPolicy.NONE, 10);
+        cache = CacheFactory.getCache(EvictionPolicy.RANDOM, 10);
     }
 
     @Test
@@ -23,11 +23,9 @@ public class DefaultCacheTest {
         String value = "value1";
 
         // Act
-        boolean putResult = cache.put(key, value);
+        cache.put(key, value);
         Optional<String> getResult = cache.get(key);
 
-        // Assert
-        assertTrue(putResult, "put should return true");
         assertEquals(Optional.of(value), getResult, "get should return the value that was put");
     }
 

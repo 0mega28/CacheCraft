@@ -1,9 +1,13 @@
 package com.example;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Optional;
 
 public interface Cache<K, V> {
-    Optional<V> get(final K key);
+    Optional<V> get(@NotNull final K key);
 
-    boolean put(final K key, final V value);
+    void put(@NotNull K key, @NotNull V value);
+
+    int size();
 }

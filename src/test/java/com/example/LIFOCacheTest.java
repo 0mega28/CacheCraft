@@ -79,7 +79,7 @@ public class LIFOCacheTest {
     @Test
     public void testPutAndUpdate() {
         cache.put("key1", "value1");
-        assertTrue(cache.put("key1", "new_value1"));
+        cache.put("key1", "new_value1");
 
         assertEquals(Optional.of("new_value1"), cache.get("key1"));
     }
