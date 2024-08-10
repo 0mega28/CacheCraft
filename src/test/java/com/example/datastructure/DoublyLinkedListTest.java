@@ -78,4 +78,40 @@ class DoublyLinkedListTest {
         assertEquals(1, list.size());
         assertSame(1, list.get(0).getValue());
     }
+
+    @Test
+    void testAddNext() {
+        Node<Integer> head = list.add(1);
+        Node<Integer> node1 = list.insertNext(head, 2);
+
+        assertEquals(2, list.size());
+        assertSame(node1, list.get(1));
+
+        Node<Integer> tail = list.insertNext(node1, 3);
+        assertEquals(3, list.size());
+        assertSame(tail, list.getLast());
+        assertSame(tail, list.get(2));
+
+        Node<Integer> mid = list.insertNext(node1, 4);
+        assertEquals(4, list.size());
+        assertSame(mid, list.get(2));
+
+        Node<Integer> node2 = list.insertNext(list.getLast(), 5);
+        assertEquals(node2, list.getLast());
+    }
+
+    @Test
+    void testAddHead() {
+        Node<Integer> node1 = list.addAtHead(1);
+        assertEquals(1, list.size());
+        assertSame(node1, list.getFirst());
+
+        Node<Integer> node2 = list.addAtHead(2);
+        assertEquals(2, list.size());
+        assertSame(node2, list.getFirst());
+
+        Node<Integer> node3 = list.addAtHead(3);
+        assertEquals(3, list.size());
+        assertSame(node3, list.getFirst());
+    }
 }

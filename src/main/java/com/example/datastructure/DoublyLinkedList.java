@@ -59,7 +59,7 @@ public class DoublyLinkedList<T> {
 
     public void remove(@NotNull Node<T> node) {
         if (!nodes.contains(node)) {
-            throw new IllegalArgumentException("Node is not in the list");
+            throw new NoSuchElementException();
         }
         if (head == tail && head == node) {
             head = null;
@@ -93,6 +93,49 @@ public class DoublyLinkedList<T> {
 
     public double size() {
         return size;
+    }
+
+    public Node<T> insertNext(Node<T> currNode, T newValue) {
+        if (!nodes.contains(currNode)) {
+            throw new NoSuchElementException();
+        }
+
+        Node<T> newNode = new Node<>(newValue);
+
+        if (head == tail && head == currNode) {
+            head.next = newNode;
+            newNode.prev = head;
+            tail = newNode;
+        } else if (tail == currNode) {
+            tail.next = newNode;
+            newNode.prev = tail;
+            tail = newNode;
+        } else {
+            var nextNode = currNode.next;
+            currNode.next = newNode;
+            nextNode.prev = newNode;
+            newNode.next = nextNode;
+            newNode.prev = currNode;
+        }
+        size++;
+        nodes.add(newNode);
+        return newNode;
+    }
+
+    public Node<T> addAtHead(T value) {
+        if (head == null) {
+            return add(value);
+        }
+
+        Node<T> newNode = new Node<>(value);
+        var currHead = head;
+        newNode.next = currHead;
+        currHead.prev = newNode;
+        head = newNode;
+
+        size++;
+        nodes.add(newNode);
+        return newNode;
     }
 
     public static class Node<T> {
