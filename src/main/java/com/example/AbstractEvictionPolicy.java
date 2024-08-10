@@ -6,6 +6,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.NoSuchElementException;
 
 abstract class AbstractEvictionPolicy<K> {
     DoublyLinkedList<K> keyOrder;
@@ -23,12 +24,17 @@ abstract class AbstractEvictionPolicy<K> {
 
     public void keyRemoved(@NotNull K keyToEvict) {
         if(!keyNodeMap.containsKey(keyToEvict)) {
-            // TODO Create proper exception
-            throw new IllegalArgumentException("Key Doesn't Exist");
+            throw new NoSuchElementException();
         }
 
         Node<K> node = keyNodeMap.remove(keyToEvict);
         keyOrder.remove(node);
+    }
+
+    void throwIfEmpty() {
+        if (keyOrder.isEmpty()) {
+            throw new IllegalStateException("Empty");
+        }
     }
 
     abstract void keyAccessed(@NotNull K key);

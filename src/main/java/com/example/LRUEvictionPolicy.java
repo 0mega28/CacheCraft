@@ -19,6 +19,8 @@ public class LRUEvictionPolicy<K> extends AbstractEvictionPolicy<K> {
 
     @Override
     K keyToEvict() {
+        throwIfEmpty();
+
         return keyOrder.getFirst().getValue();
     }
 }

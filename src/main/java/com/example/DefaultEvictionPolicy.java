@@ -15,10 +15,7 @@ public class DefaultEvictionPolicy<K> extends AbstractEvictionPolicy<K> {
 
     @Override
     public K keyToEvict() {
-        if (keyOrder.isEmpty()) {
-            // TODO Create proper exception
-            throw new IllegalStateException("Key Eviction List is empty");
-        }
+        throwIfEmpty();
 
         return keyNodeMap.keySet().iterator().next();
     }

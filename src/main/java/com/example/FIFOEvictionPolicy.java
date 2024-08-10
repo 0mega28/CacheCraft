@@ -15,10 +15,7 @@ public class FIFOEvictionPolicy<K> extends AbstractEvictionPolicy<K> {
 
     @Override
     K keyToEvict() {
-        if (keyOrder.isEmpty()) {
-            // TODO Create proper exception
-            throw new IllegalStateException("Key Eviction List is empty");
-        }
+        throwIfEmpty();
 
         return keyOrder.getFirst().getValue();
     }
