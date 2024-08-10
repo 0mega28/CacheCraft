@@ -1,20 +1,20 @@
-package com.example;
+package com.example.evictionpolicy;
 
 import org.jetbrains.annotations.NotNull;
 
 public class LFUEvictionPolicy<K> extends AbstractEvictionPolicy<K> {
     @Override
-    void keyAccessed(@NotNull K key) {
+    public void keyAccessed(@NotNull K key) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    void keyUpdated(K key) {
+    public void keyUpdated(K key) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    K keyToEvict() {
+    public K keyToEvict() {
         throw new UnsupportedOperationException();
     }
 }

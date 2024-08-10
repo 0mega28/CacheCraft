@@ -1,12 +1,15 @@
 package com.example;
 
+import com.example.evictionpolicy.AbstractEvictionPolicy;
+import com.example.storage.HashMapStorage;
+import com.example.storage.Storage;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;
 
 class CacheImpl<K, V> implements Cache<K, V> {
     private final int capacity;
-    private final IStorage<K, V> storage;
+    private final Storage<K, V> storage;
     private final AbstractEvictionPolicy<K> evictionPolicy;
 
     CacheImpl(int capacity,

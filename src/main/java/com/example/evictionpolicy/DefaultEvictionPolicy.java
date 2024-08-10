@@ -1,4 +1,4 @@
-package com.example;
+package com.example.evictionpolicy;
 
 import org.jetbrains.annotations.NotNull;
 

@@ -1,5 +1,10 @@
 package com.example;
 
+import com.example.evictionpolicy.DefaultEvictionPolicy;
+import com.example.evictionpolicy.FIFOEvictionPolicy;
+import com.example.evictionpolicy.LIFOEvictionPolicy;
+import com.example.evictionpolicy.LRUEvictionPolicy;
+
 public interface CacheFactory {
     static <K, V> Cache<K, V> getCache(final EvictionPolicy EVICTION_POLICY, final int capacity) {
         if (capacity <= 0) {

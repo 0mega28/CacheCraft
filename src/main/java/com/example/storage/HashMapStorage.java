@@ -1,14 +1,14 @@
-package com.example;
+package com.example.storage;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
 import java.util.Optional;
 
-class HashMapStorage<K, V> implements IStorage<K, V> {
+public class HashMapStorage<K, V> implements Storage<K, V> {
     private final HashMap<K, V> storage;
 
-    HashMapStorage() {
+    public HashMapStorage() {
         storage = new HashMap<>();
     }
 

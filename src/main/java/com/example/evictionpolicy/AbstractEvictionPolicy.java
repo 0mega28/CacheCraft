@@ -1,4 +1,4 @@
-package com.example;
+package com.example.evictionpolicy;
 
 import com.example.datastructure.DoublyLinkedList;
 import com.example.datastructure.DoublyLinkedList.Node;
@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.NoSuchElementException;
 
-abstract class AbstractEvictionPolicy<K> {
+public abstract class AbstractEvictionPolicy<K> {
     DoublyLinkedList<K> keyOrder;
     Map<K, Node<K>> keyNodeMap;
 
@@ -17,7 +17,7 @@ abstract class AbstractEvictionPolicy<K> {
         keyNodeMap = new HashMap<>();
     }
 
-    void keyAdded(@NotNull K key) {
+    public void keyAdded(@NotNull K key) {
         Node<K> node = keyOrder.add(key);
         keyNodeMap.put(key, node);
     }
@@ -37,9 +37,9 @@ abstract class AbstractEvictionPolicy<K> {
         }
     }
 
-    abstract void keyAccessed(@NotNull K key);
+    public abstract void keyAccessed(@NotNull K key);
 
-    abstract void keyUpdated(K key);
+    public abstract void keyUpdated(K key);
 
-    abstract K keyToEvict();
+    public abstract K keyToEvict();
 }

@@ -1,10 +1,10 @@
-package com.example;
+package com.example.storage;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;
 
-interface IStorage<K, V> {
+public interface Storage<K, V> {
     Optional<V> get(@NotNull K key);
 
     boolean containsKey(@NotNull K key);
