@@ -4,5 +4,6 @@ public enum EvictionPolicy {
     RANDOM,
     LIFO,
     FIFO,
-    LRU
+    LRU,
+    LFU
 }

@@ -10,6 +10,7 @@ public interface CacheFactory {
             case FIFO -> new FIFOEvictionPolicy<K>();
             case LIFO -> new LIFOEvictionPolicy<K>();
             case LRU -> new LRUEvictionPolicy<K>();
+            case LFU -> throw new IllegalArgumentException("LFU Cache is not supported");
         };
 
         return new CacheImpl<>(capacity, evictionPolicy);
