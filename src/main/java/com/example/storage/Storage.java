@@ -5,7 +5,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Optional;
 
 public interface Storage<K, V> {
-    Optional<V> get(@NotNull K key);
+    @NotNull Optional<V> get(@NotNull K key);
 
     boolean containsKey(@NotNull K key);
 

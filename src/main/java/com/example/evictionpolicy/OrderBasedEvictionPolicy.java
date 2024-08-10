@@ -56,5 +56,6 @@ public abstract class OrderBasedEvictionPolicy<K> implements EvictionPolicy<K> {
 
     public abstract void keyUpdated(@NotNull K key);
 
+    @NotNull
     public abstract K keyToEvict();
 }

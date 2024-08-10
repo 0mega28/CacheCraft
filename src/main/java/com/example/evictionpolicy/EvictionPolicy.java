@@ -12,7 +12,7 @@ public interface EvictionPolicy<K> {
 
     void keyUpdated(@NotNull K key);
 
-    K keyToEvict();
+    @NotNull K keyToEvict();
 
     boolean isEmpty();
     int size();

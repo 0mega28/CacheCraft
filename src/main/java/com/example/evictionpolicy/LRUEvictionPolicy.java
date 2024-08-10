@@ -17,6 +17,7 @@ public class LRUEvictionPolicy<K> extends OrderBasedEvictionPolicy<K> {
         keyAccessed(key);
     }
 
+    @NotNull
     @Override
     public K keyToEvict() {
         throwIfEmpty();

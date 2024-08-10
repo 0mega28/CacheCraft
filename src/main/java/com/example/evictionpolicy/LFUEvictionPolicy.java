@@ -115,6 +115,7 @@ public class LFUEvictionPolicy<K> implements EvictionPolicy<K> {
         keyAccessed(key);
     }
 
+    @NotNull
     @Override
     public K keyToEvict() {
         if (freqOrder.isEmpty()) {

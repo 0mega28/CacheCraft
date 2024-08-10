@@ -12,6 +12,7 @@ public class HashMapStorage<K, V> implements Storage<K, V> {
         storage = new HashMap<>();
     }
 
+    @NotNull
     @Override
     public Optional<V> get(@NotNull K key) {
         return Optional.ofNullable(storage.get(key));

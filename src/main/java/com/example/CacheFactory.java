@@ -1,9 +1,11 @@
 package com.example;
 
 import com.example.evictionpolicy.*;
+import org.jetbrains.annotations.NotNull;
 
 public interface CacheFactory {
-    static <K, V> Cache<K, V> getCache(final EvictionPolicy EVICTION_POLICY, final int capacity) {
+    static <K, V> @NotNull Cache<K, V> getCache(final @NotNull EvictionPolicy EVICTION_POLICY
+            , final int capacity) {
         if (capacity <= 0) {
             throw new IllegalArgumentException("Cache size must be greater than 0");
         }

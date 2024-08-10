@@ -19,6 +19,7 @@ class CacheImpl<K, V> implements Cache<K, V> {
         this.evictionPolicy = evictionPolicy;
     }
 
+    @NotNull
     @Override
     public Optional<V> get(@NotNull K key) {
         Optional<V> value = storage.get(key);

@@ -11,7 +11,7 @@ public class DoublyLinkedList<T> {
     private int size = 0;
     private final HashSet<Node<T>> nodes = new HashSet<>();
 
-    public Node<T> add(T key) {
+    public @NotNull Node<T> add(@NotNull T key) {
         Node<T> newNode = new Node<>(key);
 
         if (head == null) {
@@ -31,14 +31,14 @@ public class DoublyLinkedList<T> {
         return head == null;
     }
 
-    public Node<T> getFirst() {
+    public @NotNull Node<T> getFirst() {
         if (head == null)
             throw new NoSuchElementException();
 
         return head;
     }
 
-    public Node<T> getLast() {
+    public @NotNull Node<T> getLast() {
         if (tail == null) {
             throw new NoSuchElementException();
         }
@@ -46,7 +46,7 @@ public class DoublyLinkedList<T> {
         return tail;
     }
 
-    public Node<T> get(int index) {
+    public @NotNull Node<T> get(int index) {
         checkIndexOutOfBound(index);
         return getNode(index);
     }
@@ -83,7 +83,7 @@ public class DoublyLinkedList<T> {
         remove(getNode(index));
     }
 
-    private Node<T> getNode(int index) {
+    private @NotNull Node<T> getNode(int index) {
         Node<T> node = head;
         while (index-- > 0) {
             node = node.next;
@@ -95,7 +95,7 @@ public class DoublyLinkedList<T> {
         return size;
     }
 
-    public Node<T> insertNext(Node<T> currNode, T newValue) {
+    public @NotNull Node<T> insertNext(@NotNull Node<T> currNode, @NotNull T newValue) {
         if (!nodes.contains(currNode)) {
             throw new NoSuchElementException();
         }
@@ -122,7 +122,7 @@ public class DoublyLinkedList<T> {
         return newNode;
     }
 
-    public Node<T> addAtHead(T value) {
+    public @NotNull Node<T> addAtHead(@NotNull T value) {
         if (head == null) {
             return add(value);
         }

@@ -13,6 +13,7 @@ public class FIFOEvictionPolicy<K> extends OrderBasedEvictionPolicy<K> {
 
     }
 
+    @NotNull
     @Override
     public K keyToEvict() {
         throwIfEmpty();

@@ -13,6 +13,7 @@ public class DefaultEvictionPolicy<K> extends OrderBasedEvictionPolicy<K> {
 
     }
 
+    @NotNull
     @Override
     public K keyToEvict() {
         throwIfEmpty();

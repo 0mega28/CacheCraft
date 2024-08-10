@@ -114,4 +114,11 @@ class DoublyLinkedListTest {
         assertEquals(3, list.size());
         assertSame(node3, list.getFirst());
     }
+
+    @Test
+    void testNodeNotExist() {
+        Node<Integer> node = new Node<>(1);
+        assertThrows(NoSuchElementException.class, () -> list.remove(node));
+        assertThrows(NoSuchElementException.class, () -> list.insertNext(node, 2));
+    }
 }
