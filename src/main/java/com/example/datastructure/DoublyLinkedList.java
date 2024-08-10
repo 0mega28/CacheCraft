@@ -46,6 +46,17 @@ public class DoublyLinkedList<T> {
         return tail;
     }
 
+    public Node<T> get(int index) {
+        checkIndexOutOfBound(index);
+        return getNode(index);
+    }
+
+    private void checkIndexOutOfBound(int index) {
+        if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException();
+        }
+    }
+
     public void remove(@NotNull Node<T> node) {
         if (!nodes.contains(node)) {
             throw new IllegalArgumentException("Node is not in the list");
@@ -65,6 +76,19 @@ public class DoublyLinkedList<T> {
         }
         size--;
         nodes.remove(node);
+    }
+
+    public void remove(int index) {
+        checkIndexOutOfBound(index);
+        remove(getNode(index));
+    }
+
+    private Node<T> getNode(int index) {
+        Node<T> node = head;
+        while (index-- > 0) {
+            node = node.next;
+        }
+        return node;
     }
 
     public double size() {
