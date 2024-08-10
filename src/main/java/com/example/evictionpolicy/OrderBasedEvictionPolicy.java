@@ -17,11 +17,13 @@ public abstract class OrderBasedEvictionPolicy<K> implements EvictionPolicy<K> {
         keyNodeMap = new HashMap<>();
     }
 
+    @Override
     public void keyAdded(@NotNull K key) {
         Node<K> node = keyOrder.add(key);
         keyNodeMap.put(key, node);
     }
 
+    @Override
     public void keyRemoved(@NotNull K keyToEvict) {
         if(!keyNodeMap.containsKey(keyToEvict)) {
             throw new NoSuchElementException();
@@ -29,6 +31,19 @@ public abstract class OrderBasedEvictionPolicy<K> implements EvictionPolicy<K> {
 
         Node<K> node = keyNodeMap.remove(keyToEvict);
         keyOrder.remove(node);
+    }
+
+    @Override
+    public int size() {
+        if (keyOrder.size() != keyNodeMap.size()) {
+            throw new IllegalStateException("Something really worng happened in the cache");
+        }
+        return keyNodeMap.size();
+    }
+
+    @Override
+    public boolean isEmpty() {
+        return size() == 0;
     }
 
     void throwIfEmpty() {
