@@ -1,9 +1,6 @@
 package com.example;
 
-import com.example.evictionpolicy.DefaultEvictionPolicy;
-import com.example.evictionpolicy.FIFOEvictionPolicy;
-import com.example.evictionpolicy.LIFOEvictionPolicy;
-import com.example.evictionpolicy.LRUEvictionPolicy;
+import com.example.evictionpolicy.*;
 
 public interface CacheFactory {
     static <K, V> Cache<K, V> getCache(final EvictionPolicy EVICTION_POLICY, final int capacity) {
@@ -15,7 +12,7 @@ public interface CacheFactory {
             case FIFO -> new FIFOEvictionPolicy<K>();
             case LIFO -> new LIFOEvictionPolicy<K>();
             case LRU -> new LRUEvictionPolicy<K>();
-            case LFU -> throw new IllegalArgumentException("LFU Cache is not supported");
+            case LFU -> new LFUEvictionPolicy<K>();
         };
 
         return new CacheImpl<>(capacity, evictionPolicy);

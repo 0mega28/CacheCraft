@@ -8,11 +8,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.NoSuchElementException;
 
-public abstract class AbstractEvictionPolicy<K> {
+public abstract class OrderBasedEvictionPolicy<K> implements EvictionPolicy<K> {
     DoublyLinkedList<K> keyOrder;
     Map<K, Node<K>> keyNodeMap;
 
-    AbstractEvictionPolicy() {
+    OrderBasedEvictionPolicy() {
         keyOrder = new DoublyLinkedList<>();
         keyNodeMap = new HashMap<>();
     }
@@ -39,7 +39,7 @@ public abstract class AbstractEvictionPolicy<K> {
 
     public abstract void keyAccessed(@NotNull K key);
 
-    public abstract void keyUpdated(K key);
+    public abstract void keyUpdated(@NotNull K key);
 
     public abstract K keyToEvict();
 }

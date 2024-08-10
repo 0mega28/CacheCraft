@@ -3,7 +3,7 @@ package com.example.evictionpolicy;
 import com.example.datastructure.DoublyLinkedList.Node;
 import org.jetbrains.annotations.NotNull;
 
-public class LRUEvictionPolicy<K> extends AbstractEvictionPolicy<K> {
+public class LRUEvictionPolicy<K> extends OrderBasedEvictionPolicy<K> {
     @Override
     public void keyAccessed(@NotNull K key) {
         Node<K> node = keyNodeMap.get(key);
@@ -13,7 +13,7 @@ public class LRUEvictionPolicy<K> extends AbstractEvictionPolicy<K> {
     }
 
     @Override
-    public void keyUpdated(K key) {
+    public void keyUpdated(@NotNull K key) {
         keyAccessed(key);
     }
 

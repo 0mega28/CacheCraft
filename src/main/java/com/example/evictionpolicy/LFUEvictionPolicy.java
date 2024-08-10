@@ -2,14 +2,14 @@ package com.example.evictionpolicy;
 
 import org.jetbrains.annotations.NotNull;
 
-public class LFUEvictionPolicy<K> extends AbstractEvictionPolicy<K> {
+public class LFUEvictionPolicy<K> extends OrderBasedEvictionPolicy<K> {
     @Override
     public void keyAccessed(@NotNull K key) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public void keyUpdated(K key) {
+    public void keyUpdated(@NotNull K key) {
         throw new UnsupportedOperationException();
     }
 

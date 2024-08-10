@@ -2,14 +2,14 @@ package com.example.evictionpolicy;
 
 import org.jetbrains.annotations.NotNull;
 
-public class LIFOEvictionPolicy<K> extends AbstractEvictionPolicy<K> {
+public class LIFOEvictionPolicy<K> extends OrderBasedEvictionPolicy<K> {
     @Override
     public void keyAccessed(@NotNull K key) {
 
     }
 
     @Override
-    public void keyUpdated(K key) {
+    public void keyUpdated(@NotNull K key) {
 
     }
 

@@ -1,6 +1,6 @@
 package com.example;
 
-import com.example.evictionpolicy.AbstractEvictionPolicy;
+import com.example.evictionpolicy.EvictionPolicy;
 import com.example.storage.HashMapStorage;
 import com.example.storage.Storage;
 import org.jetbrains.annotations.NotNull;
@@ -10,10 +10,10 @@ import java.util.Optional;
 class CacheImpl<K, V> implements Cache<K, V> {
     private final int capacity;
     private final Storage<K, V> storage;
-    private final AbstractEvictionPolicy<K> evictionPolicy;
+    private final EvictionPolicy<K> evictionPolicy;
 
     CacheImpl(int capacity,
-              @NotNull final AbstractEvictionPolicy<K> evictionPolicy) {
+              @NotNull final EvictionPolicy<K> evictionPolicy) {
         this.capacity = capacity;
         storage = new HashMapStorage<>();
         this.evictionPolicy = evictionPolicy;
