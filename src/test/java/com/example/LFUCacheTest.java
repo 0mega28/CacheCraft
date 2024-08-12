@@ -121,7 +121,7 @@ public class LFUCacheTest {
         CacheTestingStrategy.doTest(new LFUEvictionPolicy<>(), new LFUEvictionPolicyDumb<>());
     }
 
-    static class LFUEvictionPolicyDumb<K> implements com.example.evictionpolicy.EvictionPolicy<K> {
+    private static class LFUEvictionPolicyDumb<K> implements com.example.evictionpolicy.EvictionPolicy<K> {
         static class KeyAndFreq<K> {
             private final K key;
             private int freq;
@@ -147,31 +147,24 @@ public class LFUCacheTest {
 
         @Override
         public void keyAdded(@NotNull K key) {
-            boolean isKeyAlreadyPresent = keyAndFreqList
-                    .stream()
-                    .anyMatch(o -> o.getKey().equals(key));
-            if (isKeyAlreadyPresent) {
-                throw new IllegalArgumentException("Key " + key + " already exists");
-            }
             keyAndFreqList.add(new KeyAndFreq<>(key));
         }
 
         @Override
         public void keyRemoved(@NotNull K keyToEvict) {
-            boolean isKeyRemoved = keyAndFreqList
+            keyAndFreqList
                     .removeIf(o -> o.getKey().equals(keyToEvict));
-            if (!isKeyRemoved) {
-                throw new NoSuchElementException("Key " + keyToEvict + " not exists");
-            }
         }
 
         @Override
         public void keyAccessed(@NotNull K key) {
-            var keyAndFreq = keyAndFreqList.stream()
-                    .filter(o -> o.getKey().equals(key))
-                    .findFirst()
-                    .orElseThrow(NoSuchElementException::new);
-
+            int idx = 0;
+            for (; idx < keyAndFreqList.size(); idx++) {
+                if (keyAndFreqList.get(idx).getKey().equals(key)) {
+                    break;
+                }
+            }
+            KeyAndFreq<K> keyAndFreq = keyAndFreqList.remove(idx);
             keyAndFreq.incrementFreq();
             keyAndFreqList.add(keyAndFreq);
         }
