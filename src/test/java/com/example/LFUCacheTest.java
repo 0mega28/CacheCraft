@@ -1,7 +1,13 @@
 package com.example;
 
+import com.example.evictionpolicy.LFUEvictionPolicy;
+import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.NoSuchElementException;
 
 import static java.util.Optional.empty;
 import static java.util.Optional.of;
@@ -109,4 +115,91 @@ public class LFUCacheTest {
         assertEquals(empty(), cache.get(3), "Key 3 should be evicted");
         assertEquals(of(40), cache.get(4), "Key 4 should be in the cache");
     }
+
+    @Test
+    void automatedTest() {
+        CacheTestingStrategy.doTest(new LFUEvictionPolicy<>(), new LFUEvictionPolicyDumb<>());
+    }
+
+    static class LFUEvictionPolicyDumb<K> implements com.example.evictionpolicy.EvictionPolicy<K> {
+        static class KeyAndFreq<K> {
+            private final K key;
+            private int freq;
+
+            KeyAndFreq(K key) {
+                this.key = key;
+                freq = 1;
+            }
+
+            public K getKey() {
+                return key;
+            }
+
+            public int getFreq() {
+                return freq;
+            }
+
+            public void incrementFreq() {
+                freq++;
+            }
+        }
+        ArrayList<KeyAndFreq<K>> keyAndFreqList = new ArrayList<>();
+
+        @Override
+        public void keyAdded(@NotNull K key) {
+            boolean isKeyAlreadyPresent = keyAndFreqList
+                    .stream()
+                    .anyMatch(o -> o.getKey().equals(key));
+            if (isKeyAlreadyPresent) {
+                throw new IllegalArgumentException("Key " + key + " already exists");
+            }
+            keyAndFreqList.add(new KeyAndFreq<>(key));
+        }
+
+        @Override
+        public void keyRemoved(@NotNull K keyToEvict) {
+            boolean isKeyRemoved = keyAndFreqList
+                    .removeIf(o -> o.getKey().equals(keyToEvict));
+            if (!isKeyRemoved) {
+                throw new NoSuchElementException("Key " + keyToEvict + " not exists");
+            }
+        }
+
+        @Override
+        public void keyAccessed(@NotNull K key) {
+            var keyAndFreq = keyAndFreqList.stream()
+                    .filter(o -> o.getKey().equals(key))
+                    .findFirst()
+                    .orElseThrow(NoSuchElementException::new);
+
+            keyAndFreq.incrementFreq();
+            keyAndFreqList.add(keyAndFreq);
+        }
+
+        @Override
+        public void keyUpdated(@NotNull K key) {
+            keyAccessed(key);
+        }
+
+        @NotNull
+        @Override
+        public K keyToEvict() {
+            return keyAndFreqList
+                    .stream()
+                    .min(Comparator.comparingInt(KeyAndFreq::getFreq))
+                    .orElseThrow()
+                    .getKey();
+        }
+
+        @Override
+        public boolean isEmpty() {
+            return size() == 0;
+        }
+
+        @Override
+        public int size() {
+            return keyAndFreqList.size();
+        }
+    }
 }
+
