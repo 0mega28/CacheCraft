@@ -1,10 +1,13 @@
 package com.example;
 
+import com.example.evictionpolicy.LIFOEvictionPolicy;
+import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Optional;
+import java.util.Stack;
 
 public class LIFOCacheTest {
 
@@ -82,5 +85,51 @@ public class LIFOCacheTest {
         cache.put("key1", "new_value1");
 
         assertEquals(Optional.of("new_value1"), cache.get("key1"));
+    }
+
+    @Test
+    void automatedTest() {
+        CacheTestingStrategy.doTest(new LIFOEvictionPolicy<>(),
+                new LIFOEvictionPolicyDumb<>());
+    }
+
+    private static class LIFOEvictionPolicyDumb<K> implements com.example.evictionpolicy.EvictionPolicy<K> {
+        private final Stack<K> stack = new Stack<>();
+
+        @Override
+        public void keyAdded(@NotNull K key) {
+            stack.push(key);
+        }
+
+        @Override
+        public void keyRemoved(@NotNull K keyToEvict) {
+            stack.remove(keyToEvict);
+        }
+
+        @Override
+        public void keyAccessed(@NotNull K key) {
+
+        }
+
+        @Override
+        public void keyUpdated(@NotNull K key) {
+
+        }
+
+        @NotNull
+        @Override
+        public K keyToEvict() {
+            return stack.peek();
+        }
+
+        @Override
+        public boolean isEmpty() {
+            return size() == 0;
+        }
+
+        @Override
+        public int size() {
+            return stack.size();
+        }
     }
 }

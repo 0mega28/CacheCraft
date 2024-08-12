@@ -1,9 +1,14 @@
 package com.example;
 
 import static org.junit.jupiter.api.Assertions.*;
+
+import com.example.evictionpolicy.LRUEvictionPolicy;
+import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 class LRUCacheTest {
@@ -82,5 +87,51 @@ class LRUCacheTest {
         cache.put("key6", "value7");
         /* 5 2 6 */
         assertEquals(Optional.empty(), cache.get("key4"));
+    }
+
+    @Test
+    void automatedTest() {
+        CacheTestingStrategy.doTest(new LRUEvictionPolicy<>() , new LRUEvictionPolicyDumb<>());
+    }
+
+    private static class LRUEvictionPolicyDumb<K> implements com.example.evictionpolicy.EvictionPolicy<K> {
+        List<K> keys = new ArrayList<>();
+
+        @Override
+        public void keyAdded(@NotNull K key) {
+            keys.add(key);
+        }
+
+        @Override
+        public void keyRemoved(@NotNull K keyToEvict) {
+            keys.remove(keyToEvict);
+        }
+
+        @Override
+        public void keyAccessed(@NotNull K key) {
+            keys.remove(key);
+            keys.add(key);
+        }
+
+        @Override
+        public void keyUpdated(@NotNull K key) {
+            keyAccessed(key);
+        }
+
+        @NotNull
+        @Override
+        public K keyToEvict() {
+            return keys.getFirst();
+        }
+
+        @Override
+        public boolean isEmpty() {
+            return size() == 0;
+        }
+
+        @Override
+        public int size() {
+            return keys.size();
+        }
     }
 }
