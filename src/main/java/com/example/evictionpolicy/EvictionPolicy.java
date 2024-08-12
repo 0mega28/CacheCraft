@@ -14,6 +14,8 @@ public interface EvictionPolicy<K> {
 
     @NotNull K keyToEvict();
 
-    boolean isEmpty();
+    default boolean isEmpty() {
+        return size() == 0;
+    }
     int size();
 }

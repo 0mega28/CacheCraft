@@ -41,11 +41,6 @@ public abstract class OrderBasedEvictionPolicy<K> implements EvictionPolicy<K> {
         return keyNodeMap.size();
     }
 
-    @Override
-    public boolean isEmpty() {
-        return size() == 0;
-    }
-
     void throwIfEmpty() {
         if (keyOrder.isEmpty()) {
             throw new IllegalStateException("Empty");

@@ -185,11 +185,6 @@ public class LFUCacheTest {
         }
 
         @Override
-        public boolean isEmpty() {
-            return size() == 0;
-        }
-
-        @Override
         public int size() {
             return keyAndFreqList.size();
         }

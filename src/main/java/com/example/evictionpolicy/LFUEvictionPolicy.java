@@ -125,11 +125,6 @@ public class LFUEvictionPolicy<K> implements EvictionPolicy<K> {
     }
 
     @Override
-    public boolean isEmpty() {
-        return size() == 0;
-    }
-
-    @Override
     public int size() {
         return keyToKeyFreqMap.size();
     }
