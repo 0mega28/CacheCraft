@@ -54,7 +54,7 @@ public class CacheTestingStrategy {
         }
     }
 
-    private final static int CAPACITY = 100;
+    private final static int CAPACITY = 10_000;
     private final Cache<Integer, Integer> cacheToTest;
     private final Cache<Integer, Integer> cacheDumb;
     private final Timer testTimer;
