@@ -6,6 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.ArrayList;
 import java.util.Optional;
 import java.util.Stack;
 
@@ -94,16 +95,20 @@ public class LIFOCacheTest {
     }
 
     private static class LIFOEvictionPolicyDumb<K> implements com.example.evictionpolicy.EvictionPolicy<K> {
-        private final Stack<K> stack = new Stack<>();
+        private final ArrayList<K> stack = new ArrayList<>();
 
         @Override
         public void keyAdded(@NotNull K key) {
-            stack.push(key);
+            stack.add(key);
         }
 
         @Override
         public void keyRemoved(@NotNull K keyToEvict) {
-            stack.remove(keyToEvict);
+            if (stack.getLast() == keyToEvict) {
+                stack.removeLast();
+            } else {
+                stack.remove(keyToEvict);
+            }
         }
 
         @Override
@@ -119,7 +124,7 @@ public class LIFOCacheTest {
         @NotNull
         @Override
         public K keyToEvict() {
-            return stack.peek();
+            return stack.getLast();
         }
 
         @Override
