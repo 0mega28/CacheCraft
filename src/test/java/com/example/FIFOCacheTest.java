@@ -1,9 +1,11 @@
 package com.example;
 
+import com.example.evictionpolicy.FIFOEvictionPolicy;
+import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.Optional;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -47,5 +49,48 @@ class FIFOCacheTest {
          */
         cache.put("key7", "value7");
         assertEquals(Optional.empty(), cache.get("key4"));
+    }
+
+    @Test
+    void automatedTest() {
+        CacheTestingStrategy.doTest(new FIFOEvictionPolicy<>(),
+                new FIFOEvictionPolicyDumb<>());
+    }
+
+    private static class FIFOEvictionPolicyDumb<T> implements com.example.evictionpolicy.EvictionPolicy<T> {
+        Queue<T> queue = new ArrayDeque<>();
+        @Override
+        public void keyAdded(@NotNull T key) {
+            queue.add(key);
+        }
+
+        @Override
+        public void keyRemoved(@NotNull T keyToEvict) {
+            if (queue.peek() == keyToEvict)
+                queue.poll();
+            else
+                queue.remove(keyToEvict);
+        }
+
+        @Override
+        public void keyAccessed(@NotNull T key) {
+
+        }
+
+        @Override
+        public void keyUpdated(@NotNull T key) {
+
+        }
+
+        @NotNull
+        @Override
+        public T keyToEvict() {
+            return Objects.requireNonNull(queue.peek(), "Empty Queue");
+        }
+
+        @Override
+        public int size() {
+            return queue.size();
+        }
     }
 }
