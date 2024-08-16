@@ -42,8 +42,8 @@ public class CacheTestingStrategy {
         }
 
         static CacheCommand generateCacheCommand(int capacity) {
-            final int keyLow = 1, keyHigh = capacity * 5;
-            final int valueLow = 1, valueHigh = capacity * 5;
+            final int keyLow = 1, keyHigh = capacity * 2;
+            final int valueLow = 1, valueHigh = capacity * 2;
             final int newKey = getRandom(keyLow, keyHigh);
             final int newValue = getRandom(valueLow, valueHigh);
             boolean generateGet = Math.random() > 0.5;
@@ -57,8 +57,11 @@ public class CacheTestingStrategy {
     private final static int CAPACITY = 10_000;
     private final Cache<Integer, Integer> cacheToTest;
     private final Cache<Integer, Integer> cacheDumb;
+
     private final Timer testTimer;
     private final Timer dumbTimer;
+
+    private int hit, miss;
 
     private CacheTestingStrategy(
             EvictionPolicy<Integer> evictionPolicyToTest,
@@ -66,8 +69,12 @@ public class CacheTestingStrategy {
     ) {
         cacheToTest = new CacheImpl<>(CAPACITY, evictionPolicyToTest);
         cacheDumb = new CacheImpl<>(CAPACITY, evictionPolicyDumb);
+
         testTimer = new Timer("Test Strategy");
         dumbTimer = new Timer("Dumb Strategy");
+
+        hit = 0;
+        miss = 0;
     }
 
     private static int getRandom(int low, int high) {
@@ -87,6 +94,8 @@ public class CacheTestingStrategy {
 
                 assertEquals(value, expected);
                 assertEquals(cacheToTest.size(), cacheDumb.size());
+
+                value.ifPresentOrElse(v -> hit++, () -> miss++);
             }
             case Put(int key, int value) -> {
                 testTimer.start();
@@ -112,5 +121,14 @@ public class CacheTestingStrategy {
                 .forEach(cacheTestingStrategy::testCache);
         cacheTestingStrategy.testTimer.end();
         cacheTestingStrategy.dumbTimer.end();
+
+        int getRequests = cacheTestingStrategy.hit + cacheTestingStrategy.miss;
+        int putRequests = numOfTestCases - getRequests;
+
+        System.out.println("Cache Size: " + CAPACITY);
+        System.out.println("Get requests: " + getRequests);
+        System.out.println("Put requests: " + putRequests);
+        System.out.println("Hits: " + cacheTestingStrategy.hit);
+        System.out.println("Misses: " + cacheTestingStrategy.miss);
     }
 }
