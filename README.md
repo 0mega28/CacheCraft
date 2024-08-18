@@ -1,4 +1,4 @@
-# CacheCraft
+# CacheCraft [![Java CI](https://github.com/0mega28/CacheCraft/actions/workflows/ci.yml/badge.svg)](https://github.com/0mega28/CacheCraft/actions/workflows/ci.yml)
 
 ## Overview
 **CacheCraft** is a comprehensive repository dedicated to the implementation and study of various caching mechanisms and design patterns. This project aims to provide a learning platform for developers to understand and apply different caching strategies and design patterns in real-world scenarios.
